@@ -14,18 +14,7 @@ lb_name_lst=list()
 b = open("TLS_Build_output.txt","+w")
 #l_lst=list()
 #e_lst=list()
-sum_sec_usw2=0
-sum_sec_euc1=0
-sum_build_usw2=0
-sum_build_euc1=0
-sum_riq_usw2=0
-sum_riq_euc1=0
-sum_iqc_usw2=0
-sum_iqc_euc1=0
-sum_ecpprod_usw2=0
-sum_ecpprod_euc1=0
-sum_ecpstaging_usw2=0
-sum_ecpstaging_euc1=0
+sum_profile=0
 
 
 def TLS(session,account):
@@ -98,12 +87,12 @@ def TLS(session,account):
 
 def <account name as mentioned in profile>():
          #sum=0
-         global sum_sec_usw2
+         global sum_profile
          session = boto3.Session(profile_name=<profile name>,region_name=<region code>)
          TLS(session,<profile name>)
          f_handle=open('TLS_SEC_output.txt','r')
          for i in f_handle:
-             sum_sec_usw2=sum_sec_usw2+1
+             sum_profile=sum_profile+1
 if __name__ == '__main__':
     <account name as mentioned in profile>()
 
@@ -116,10 +105,10 @@ slack = slackweb.Slack(url="")
 slack.notify(text="*Summary of TLSv1.0 Check Results*")
 slack.notify(text="=============================")
 
-if sum_sec_usw2==0:
+if sum_profile==0:
    slack.notify(text="Number of URLs that support TLSv1.0 in the '<profile name>' account = 0")
 else:
-   slack.notify(text="Number of URLs that support TLSv1.0 in the `<profile name>`account = "+str(sum_sec_usw2))
+   slack.notify(text="Number of URLs that support TLSv1.0 in the `<profile name>`account = "+str(sum_profile))
 slack.notify(text="=============================")
 slack.notify(text="Please goto the corresponding URL File for each account in `` to view the details")
 
